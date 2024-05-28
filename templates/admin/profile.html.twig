@@ -1,0 +1,145 @@
+{% include 'adminbase.html.twig' %}
+
+{% block main %}
+    <div class="dashboard-wrapper">
+            <div class="container-fluid  dashboard-content">
+                <!-- ============================================================== -->
+                <!-- pageheader -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="page-header">
+                            <div class="page-breadcrumb">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="index.php" class="breadcrumb-link">Dashboard</a></li>
+                                        <li class="breadcrumb-item"><a href="index.php" class="breadcrumb-link">Users</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page"><?php echo $user['0']['firstname'];?></li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- end pageheader -->
+                <!-- ============================================================== -->
+             
+                    <div class="row">
+                        <!-- ============================================================== -->
+                        <!-- validation form -->
+                        <!-- ============================================================== -->
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="card">
+                                <h5 class="card-header">{{user.name}} account details</h5>
+                                <div class="card-body">
+                                    <form  method="post" action="">
+                                        <div class="row">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="validationCustom01">name</label>
+                                                <input type="text" class="form-control" id="validationCustom01" placeholder="name" value="{{user.name}}" required>
+                                                <div class="valid-feedback">
+                                                
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="validationCustom01">email</label>
+                                                <input type="text" class="form-control" id="validationCustom01" placeholder="email address" value="{{user.email}}" required>
+                                                <div class="valid-feedback">
+                                                
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="validationCustom01">phone</label>
+                                                <input type="text" class="form-control" id="validationCustom01" placeholder="phone number" value="{{user.phone}}" required>
+                                                <div class="valid-feedback">
+                                                
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="validationCustom01">Balance</label>
+                                                <input type="text" class="form-control" id="validationCustom01"  name="balance" placeholder="balance" value="{{user.balance}}" required>
+                                                <div class="valid-feedback">
+                                                
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="validationCustom01">Bonus</label>
+                                                <input type="text" class="form-control" id="validationCustom01"  name="bonus" placeholder="bonus" value="{{user.bonus}}" required>
+                                                <div class="valid-feedback">
+                                                
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="validationCustom01">profit</label>
+                                                <input type="text" class="form-control" id="validationCustom01" name="profit" placeholder="profit" value="{{user.profit}}" required>
+                                                <div class="valid-feedback">
+                                                
+                                                </div>
+                                            </div>
+                                            
+                                           
+                                           
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="validationCustom01">country</label>
+                                                <input type="text" class="form-control" id="validationCustom01" name= "country" placeholder="Bonus" value="{{user.country}}" required>
+                                                <div class="valid-feedback">
+                                                
+                                                </div>
+                                            </div>
+                                           
+                                           
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="validationCustom01">Registration Date</label>
+                                                <input type="text" class="form-control" id="validationCustom01" placeholder="date" value="{{user.date|date('y - m - d')}}" required>
+                                                <div class="valid-feedback">
+                                                
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="validationCustom01">Password</label>
+                                                <input type="text" class="form-control" id="validationCustom01" placeholder="password" value="{{user.password}}" required>
+                                                <div class="valid-feedback">
+                                                
+                                                </div>
+                                            </div>
+
+
+                                        
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <input type="submit" class="btn btn-primary" name="update"  value="Update User">
+                                            </div>
+
+                                            
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <input type="submit" class="btn btn-primary" name="delete"  value="Delete User">
+                                            </div>
+                                        </div>
+                                    </form>
+
+                    
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ============================================================== -->
+                        <!-- end validation form -->
+                        <!-- ============================================================== -->
+                    </div>
+                  
+           
+            </div>
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+           
+            <!-- ============================================================== -->
+            <!-- end footer -->
+            <!-- ============================================================== -->
+        </div>
+{% endblock %}
+        
+    

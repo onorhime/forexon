@@ -1,0 +1,147 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+            <div class="container-fluid mb-5">
+                <div wire:id="1tqBlDBPEX0vka6vDs9M" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;1tqBlDBPEX0vka6vDs9M&quot;,&quot;name&quot;:&quot;user.history.deposit-history&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;dashboard\/accounthistory&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[],&quot;path&quot;:&quot;https:\/\/mam.getonlinetrader.pro\/protodash\/dashboard\/accounthistory&quot;},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;2eb6e9c6&quot;,&quot;data&quot;:{&quot;page&quot;:1,&quot;paginators&quot;:{&quot;page&quot;:1}},&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;e97e249dd99b8048862eeb49cbdcf6ee5251973ba39b675ce9881cf1ac0d62e5&quot;}}">
+    <div>
+        <div>
+    <!-- Title -->
+    <h1 class="h2 m-0">
+        Account transactions history
+    </h1>
+    <p class="m-0">All your transaction history in one place.</p>
+</div>
+
+<div class="row mt-5">
+    <div class="col-6 col-lg-3">
+        <!-- Card -->
+        <a >
+            <div class="card border-0">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex flex-column">
+                            <h3 class="card-title h4 mb-0">Deposits</h3>
+                                                            {# <span class="fs-6 text-dark">10 records</span> #}
+                                                    </div>
+
+                        <div class="avatar avatar-circle avatar-xs me-2">
+                            <i class="bi bi-wallet-fill fs-3"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-6 col-lg-3">
+        <!-- Card -->
+        <a >
+            <div class="card border-0">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex flex-column">
+                            <h3 class="card-title h4 mb-0">Withdrawals</h3>
+                                                    </div>
+
+                        <div class="avatar avatar-circle avatar-xs me-2">
+                            <i class="bi bi-graph-down fs-3"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+            <div class="col-6 col-lg-3">
+            <!-- Card -->
+            <a >
+                <div class="card border-0">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex flex-column">
+                                <h3 class="card-title h4 mb-0">Profit</h3>
+                                                            </div>
+
+                            <div class="avatar avatar-circle avatar-xs me-2">
+                                <i class="bi bi-coin fs-3"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-lg-3">
+        <!-- Card -->
+        <a >
+            <div class="card border-0">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex flex-column">
+                            <h3 class="card-title h4 mb-0">Others</h3>
+                                                    </div>
+
+                        <div class="avatar avatar-circle avatar-xs me-2">
+                            <i class="bi bi-hourglass fs-3"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+</div>
+    </div>
+    <div>
+    </div>
+    <div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Transaction history</h5>
+                    <div class="table-responsive">
+                        <table class="table text-center">
+                            <thead>
+                                <tr>
+                                    <th>Amount</th>
+                                    <th>Description</th>
+                                    <th>Status</th>
+                                    <th>Date created</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                       {% for pagination in paginations %}
+                                       <tr>
+                                            <td>${{pagination.amount}}</td>
+                                            <td>{{pagination.description}}</td>
+                                            <td>
+                                            {% if pagination.status == 'complete' %}
+                                                <span class="badge bg-success rounded-pill">Successful</span>
+                                                {% else %}
+                                                 <span class="badge bg-danger">{{pagination.status}}</span>
+                                            {% endif %}
+                                                                                        </td>
+                                            <td>
+                                               {{ pagination.date | date('D, M d, Y g:i A') }}
+                                            </td>
+                                      </tr>
+                                       {% endfor %}
+
+                                      
+                                
+                            </tbody>
+                        </table>
+                        <div>
+                            <div>
+                            <nav>
+                                
+                                      {{ knp_pagination_render(paginations) }}     
+                            
+                            </nav>
+    </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

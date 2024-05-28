@@ -1,0 +1,64 @@
+                        <ul class="navbar-nav mb-lg-7">
+                            <li class="nav-item">
+                                <a class="nav-link" id='dashboard' href={{ path('dashboard') }}>
+                                    <i class="bi bi-house nav-link-icon fs-3"></i>
+                                    <span>Dashboard</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id='deposit' href={{ path('deposit') }}>
+                                    <i class="bi bi-wallet-fill nav-link-icon fs-3"></i>
+                                    <span>Deposit</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id='withdrawal' href={{ path('withdrawal') }}>
+                                    <i class="bi bi-graph-down nav-link-icon fs-3"></i>
+                                    <span>Withdraw</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id='transaction' href={{ path('transaction') }}>
+                                    <i class="bi bi-clock-history nav-link-icon fs-3"></i>
+                                    <span>Transaction History</span>
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" id="invest" href="#pagesCollapse" data-bs-toggle="collapse"
+                                    role="button" aria-expanded="false" aria-controls="pagesCollapse">
+                                    <i class="bi bi-bounding-box nav-link-icon fs-3"></i>
+                                    <span>Investment</span>
+                                </a>
+                                    <div class="collapse" id="pagesCollapse">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a href={{ path('invest') }}  class="nav-link">
+                                                    <span>Invest</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href={{ path('plans') }} class="nav-link">
+                                                    <span>My investments</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                               
+                      
+
+                            <li class="nav-item w-100">
+                                <hr>
+                            </li>
+                            <li class="nav-item">
+                                <a href="mailto:team@forexon.net" class="nav-link" class="nav-link">
+                                    <i class="bi bi-info-circle-fill nav-link-icon fs-3"></i>
+                                    <span>Help & Support</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <script>
+                            let path =  "{{ path }}"
+                           
+                            document.getElementById(path).classList.add('active')
+                        </script>

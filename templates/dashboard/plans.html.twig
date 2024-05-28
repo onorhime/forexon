@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+     <div class="container-fluid mb-5">
+                <div wire:id="xhwKrHEZ9V2ll2OKnahT" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;xhwKrHEZ9V2ll2OKnahT&quot;,&quot;name&quot;:&quot;user.plans.my-plans&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;dashboard\/myplans\/All&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[],&quot;path&quot;:&quot;https:\/\/mam.getonlinetrader.pro\/protodash\/dashboard\/myplans\/All&quot;},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;a8b6a3f3&quot;,&quot;data&quot;:{&quot;sortValue&quot;:null,&quot;page&quot;:1,&quot;paginators&quot;:{&quot;page&quot;:1}},&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;7d5d89b108e65e1433670a3086fbfd4583006320c2cdef2632023e4bbf817a7b&quot;}}">
+    <div>
+    </div>
+    <div>
+    </div>
+    <div class="container-fluid">
+        <div class="d-flex align-items-baseline justify-content-between">
+            <!-- Title -->
+            <h1 class="h2 d-flex align-items-center justify-content-between">
+                <span>
+                    My plans
+                                            <a href={{ path('invest') }} class="btn btn-sm btn-primary ms-4">Buy new plan</a>
+                                    </span>
+            </h1>
+            <div class="m-0">
+                <label class="form-label">Sort</label>
+                <select class="form-select">
+                    <option>All</option>
+                    <option>Active</option>
+                    <option>Inactive</option>
+                    <option>Expired</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+                     {% for plan in pagination %}
+                               <div class="col-lg-4 mb-3">
+                    <!-- Card -->
+                    <div class="card border-0 mb-2 cursor-move">
+
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                                                    {% if plan.iscomplete %}
+                                                                        <span class="badge bg-success">Completed</span>
+                                                                        {% else %}
+                                                                        <span class="badge bg-warning">Active</span>
+                                                                    {% endif %}
+                                                                <!-- Dropdown -->
+                                <div data-bs-toggle="tooltip" title="Plan details">
+                                    <a class="dropdown-item" href={{ path('plan',{'plan': plan.id}) }}>View</a>
+                                </div>
+                            </div>
+
+                            <!-- Title -->
+                            <a href="" class="h4 text-body card-title d-inline-block">
+                                {{plan.name}}
+                            </a>
+                            <div class="d-flex justify-content-around">
+                                <div class="mr-3 mb-0">
+                                    <h6 class="text-black m-0">
+                                        {{ plan.startdate | date('D, M d, Y g:i A') }}
+                                    </h6>
+                                    <span>Start Date</span>
+                                </div>
+                                <i class="fas fa-arrow-right text-muted"></i>
+                                <div class="ml-3">
+                                    <h6 class="text-black m-0">
+                                        {{ plan.enddate | date('D, M d, Y g:i A') }}
+                                    </h6>
+                                    <span>End Date</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-footer border-0">
+                            <div class="row justify-content-between align-items-center">
+                                <div class="col">
+                                    <i class="bi bi-coin fs-3"></i>
+                                    <span class="fs-3 h4" data-bs-toggle="tooltip"
+                                        title="Amount invested">${{plan.amount}}</span>
+                                </div>
+                            </div> <!-- / .row -->
+                        </div>
+                    </div>
+                </div>
+                     {% endfor %}
+                    <div class="row">
+                <div class="mt-2 col-12">
+                    <div>
+            <nav>
+            <ul class="pagination">
+                
+                                  
+                        {{ knp_pagination_render(pagination) }}     
+                            </ul>
+        </nav>
+    </div>
+
+                </div>
+            </div>
+            </div>
+</div>
+{% endblock %}

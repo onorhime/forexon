@@ -5,10 +5,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="V8evND43HAcKmf38iYySaKH8zMtCm9YPNjBpxJ0Y">
-        <title>Flex-FX Invest | User Login</title>
+        <title>Forexon | User Login</title>
         
         
-        <link rel="icon" href="storage/app/public/photos/zNAGDvfavicon.png1710643829" type="image/png"/>
+        <link rel="icon" href="storage/app/public/photos/zNAGDvfavicon.png" type="image/png"/>
                    
             <link href="temp/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
             <!-- Icons -->
@@ -22,6 +22,7 @@
             <!-- Main Css -->
             <link href="temp/css/style.css" rel="stylesheet" type="text/css" />
             <link href="temp/css/colors/default.css" rel="stylesheet">
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         
 
     </head>
@@ -56,7 +57,7 @@
             <div class="pb-3 row justify-content-center">
 
                 <div class="col-12 col-md-6 col-lg-6 col-sm-10 col-xl-6">
-                    <a style="margin-left:20%;" href="../index.html"><img src="storage/app/public/photos/zNAGDvstulg.png1710643829" alt="" class="mb-3 img-fluid auth__logo"></a>
+                    <a style="margin-left:20%;" href="../index.html"><img src="storage/app/public/photos/zNAGDvstulg.png" alt="" class="mb-3 img-fluid auth__logo"></a>
                     
                                                                     <div class=" shadow  login-page roundedd border-1 ">
 
@@ -71,7 +72,7 @@
 
                         <div class="card-body">
                             <h4 class="text-center card-title">User Login</h4>
-                            <form method="POST" action="login.html"  class="mt-4 login-form">
+                            <form id="loginform"  class="mt-4 login-form">
                                  <input type="hidden" name="_token" value="V8evND43HAcKmf38iYySaKH8zMtCm9YPNjBpxJ0Y">                                <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group">
@@ -112,7 +113,7 @@
                                     <!--end col-->
 
                                     <div class="mb-0 col-lg-12">
-                                        <button class="btn btn-primary btn-block pad" type="submit">Sign in</button>
+                                        <button class="btn btn-primary btn-block pad" id="btn" type="submit">Sign in</button>
                                     </div>
                                     <!--end col-->
 
@@ -129,7 +130,7 @@
                                     <!--end col-->
                                     
                                     <div class="text-center col-12">
-                                        <p class="mt-4 mb-0"><small class="mr-2 text-dark">&copy; Copyright  2024 &nbsp; Flex-FX Invest &nbsp; All Rights Reserved.</small>
+                                        <p class="mt-4 mb-0"><small class="mr-2 text-dark">&copy; Copyright  2024 &nbsp; Forexon &nbsp; All Rights Reserved.</small>
                                         </p>
                                     </div>
                                 </div>
@@ -167,11 +168,46 @@
             <script src="temp/js/owl.init.js"></script>
             <!-- Icons -->
             <script src="temp/js/feather.min.js"></script>
-            <script src="https://www.flexfxinvest.com/t/temp/js/bundle.js"></script>
+            <script src="https://www.Forexon.net/t/temp/js/bundle.js"></script>
             
             <script src="temp/js/app.js"></script>
             <script src="temp/js/widget.js"></script>
        
-
+            <script src="./js/jquery.min.js"></script>
+            <script type="text/javascript">
+                
+            $(document).ready(function (e) {
+            $("#loginform").on('submit',(function(e) {
+                e.preventDefault();
+                document.getElementById("btn").disabled = true;
+                
+                $.ajax({
+                    url: "/login",
+                    type: "POST",
+                    data:  new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData:false,
+                    success: function(data)
+                    {
+                    Swal.fire({
+                        title: `Login ${data.status}`,
+                        text: `${data.message}`,
+                        icon: `${data.status}`,
+                    });
+                    if(data["status"]=="success"){
+                        setTimeout(() => {
+                           window.location.href = "/dashboard"
+                        }, 2000);
+                    }
+                    document.getElementById("btn").disabled = false;
+                    },
+                    error: function()
+                    {
+                    }           
+               });
+            }));
+        });
+        </script>
     </body>
 </html>

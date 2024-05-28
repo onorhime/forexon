@@ -7082,8 +7082,8 @@ readers do not read off random characters that represent icons */
     font-family: 'Font Awesome 5 Brands';
     font-style: normal;
     font-weight: 400;
-    src: url("https://www.flexfxinvest.com/new/fonts/fa-brands-400.html");
-    src: url("https://www.flexfxinvest.com/new/fonts/fa-brands-400d41dd41d.html?") format("embedded-opentype"), url("../fonts/fa-brands-400.woff2") format("woff2"), url("../fonts/fa-brands-400.woff") format("woff"), url("https://www.flexfxinvest.com/new/fonts/fa-brands-401.html") format("truetype"), url("https://www.flexfxinvest.com/new/fonts/fa-brands-402.html") format("svg");
+    src: url("https://www.Forexon.net/new/fonts/fa-brands-400.html");
+    src: url("https://www.Forexon.net/new/fonts/fa-brands-400d41dd41d.html?") format("embedded-opentype"), url("../fonts/fa-brands-400.woff2") format("woff2"), url("../fonts/fa-brands-400.woff") format("woff"), url("https://www.Forexon.net/new/fonts/fa-brands-401.html") format("truetype"), url("https://www.Forexon.net/new/fonts/fa-brands-402.html") format("svg");
 }
 
 .fab {
@@ -7096,8 +7096,8 @@ readers do not read off random characters that represent icons */
     font-family: 'Font Awesome 5 Free';
     font-style: normal;
     font-weight: 900;
-    src: url("https://www.flexfxinvest.com/new/fonts/fa-solid-900.html");
-    src: url("https://www.flexfxinvest.com/new/fonts/fa-solid-900d41dd41d.html?") format("embedded-opentype"), url("../fonts/fa-solid-900.woff2") format("woff2"), url("../fonts/fa-solid-900.woff") format("woff"), url("https://www.flexfxinvest.com/new/fonts/fa-solid-901.html") format("truetype"), url("https://www.flexfxinvest.com/new/fonts/fa-solid-902.html") format("svg");
+    src: url("https://www.Forexon.net/new/fonts/fa-solid-900.html");
+    src: url("https://www.Forexon.net/new/fonts/fa-solid-900d41dd41d.html?") format("embedded-opentype"), url("../fonts/fa-solid-900.woff2") format("woff2"), url("../fonts/fa-solid-900.woff") format("woff"), url("https://www.Forexon.net/new/fonts/fa-solid-901.html") format("truetype"), url("https://www.Forexon.net/new/fonts/fa-solid-902.html") format("svg");
 }
 
 .fa,

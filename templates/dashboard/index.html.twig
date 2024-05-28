@@ -1,0 +1,409 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block main %}
+        <div class="container-fluid mb-5">
+                    <!-- Title -->
+        <h1 class="h2">
+            Welcome, {{app.user.fullname}}!
+        </h1>
+        <div>
+        </div>
+        <div>
+        </div>
+                    <div class="row">
+                <div class="col-12">
+                    <div class="py-4 alert alert-info alert-dismissible fade show" role="alert">
+                        Welcome to Forexon version 5 with a lot of Security Features,
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            <div class="col-lg-3">
+                <!-- Card -->
+                <div class="card border-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col d-flex justify-content-between">
+                                <div>
+                                    <!-- Title -->
+                                    <h5 class="d-flex align-items-center text-uppercase text-muted fw-semibold mb-2">
+                                        <span class="legend-circle-sm bg-primary"></span>
+                                        Account Balance
+                                    </h5>
+
+                                    <!-- Subtitle -->
+                                    <h2 class="mb-0">
+                                        ${{ app.user.balance | number_format(2, '.', ',') }}
+                                    </h2>
+
+                                    <a href={{ path('deposit') }} class="fs-6 btn-link mb-0 mt-2 mr-3">
+                                        Deposit
+                                    </a>
+                                    <span class="">-</span>
+                                                                        <!-- Comment -->
+                                        <a href={{ path('withdrawal') }} class="fs-6 btn-link mb-0 mt-2 ml-3">
+                                            Transfer
+                                        </a>
+                                                                </div>
+
+                                <span class="text-primary">
+                                    <i class="bi bi-wallet-fill fs-1"></i>
+                                </span>
+                            </div>
+                        </div> <!-- / .row -->
+                    </div>
+                </div>
+            </div>
+                        <div class="col-lg-3">
+                    <!-- Card -->
+                    <div class="card border-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col d-flex justify-content-between">
+                                    <div>
+                                        <!-- Title -->
+                                        <h5 class="d-flex align-items-center text-uppercase text-muted fw-semibold mb-2">
+                                            <span class="legend-circle-sm bg-success"></span>
+                                            Total Profit
+                                        </h5>
+                                        <!-- Subtitle -->
+                                        <h2 class="mb-0">
+                                            ${{ app.user.profit | number_format(2, '.', ',') }}
+                                        </h2>
+                                        <!-- Comment -->
+                                        {# <a href="https://mam.getonlinetrader.pro/protodash/dashboard/profit-history">
+                                            <p class="fs-6 btn-link mb-0 mt-2">
+                                                View profit history
+                                            </p>
+                                        </a> #}
+                                    </div>
+
+                                    <span class="text-success">
+                                        <i class="bi bi-coin fs-1"></i>
+                                    </span>
+                                </div>
+                            </div> <!-- / .row -->
+                        </div>
+                    </div>
+                </div>
+                    <div class="col-lg-3">
+                <!-- Card -->
+                <div class="card border-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col d-flex justify-content-between">
+                                <div>
+                                    <!-- Title -->
+                                    <h5 class="d-flex align-items-center text-uppercase text-muted fw-semibold mb-2">
+                                        <span class="legend-circle-sm bg-info"></span>
+                                        Total Bonus
+                                    </h5>
+                                    <!-- Subtitle -->
+                                    <h2 class="mb-0">
+                                        ${{ app.user.bonus | number_format(2, '.', ',') }}
+                                    </h2>
+                                    <!-- Comment -->
+                                    {# <a href="https://mam.getonlinetrader.pro/protodash/dashboard/other-history">
+                                        <p class="fs-6 btn-link mb-0 mt-2">
+                                            View bonus history
+                                        </p>
+                                    </a> #}
+                                </div>
+
+                                <span class="text-info">
+                                    <i class="bi bi-gift-fill fs-1"></i>
+                                </span>
+                            </div>
+                        </div> <!-- / .row -->
+                    </div>
+                </div>
+            </div>
+
+            {# <div class="col-lg-3">
+                <!-- Card -->
+                <div class="card border-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col d-flex justify-content-between">
+                                <div>
+                                    <!-- Title -->
+                                    <h5 class="d-flex align-items-center text-uppercase text-muted fw-semibold mb-2">
+                                        <span class="legend-circle-sm bg-info"></span>
+                                        Referral Bonus
+                                    </h5>
+                                    <!-- Subtitle -->
+                                    <h2 class="mb-0">
+                                        $10.00
+                                    </h2>
+                                    <!-- Comment -->
+                                    <a href="https://mam.getonlinetrader.pro/protodash/dashboard/referuser">
+                                        <p class="fs-6 btn-link mb-0 mt-2">
+                                            View referrals
+                                        </p>
+                                    </a>
+                                </div>
+
+                                <span class="text-info">
+                                    <i class="bi bi-piggy-bank fs-1"></i>
+                                </span>
+                            </div>
+                        </div> <!-- / .row -->
+                    </div>
+                </div>
+            </div> #}
+            <div class="col-lg-3">
+                <!-- Card -->
+                <div class="card border-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col d-flex justify-content-between">
+                                <div>
+                                    <!-- Title -->
+                                    <h5 class="d-flex align-items-center text-uppercase text-muted fw-semibold mb-2">
+                                        <span class="legend-circle-sm bg-success"></span>
+                                        Total Deposited
+                                    </h5>
+                                    <!-- Subtitle -->
+                                    <h2 class="mb-0">
+                                        ${{ app.user.totaldeposit | number_format(2, '.', ',') }}
+                                    </h2>
+                                    <!-- Comment -->
+                                    <a href={{ path('transaction') }}>
+                                        <p class="fs-6 btn-link mb-0 mt-2">
+                                            View deposits
+                                        </p>
+                                    </a>
+                                </div>
+
+                                <span class="text-success">
+                                    <i class="bi bi-box-arrow-in-down fs-1"></i>
+                                </span>
+                            </div>
+                        </div> <!-- / .row -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <!-- Card -->
+                <div class="card border-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col d-flex justify-content-between">
+                                <div>
+                                    <!-- Title -->
+                                    <h5 class="d-flex align-items-center text-uppercase text-muted fw-semibold mb-2">
+                                        <span class="legend-circle-sm bg-danger"></span>
+                                        Total Withdrawal
+                                    </h5>
+                                    <!-- Subtitle -->
+                                    <h2 class="mb-0">
+                                        ${{ app.user.totalwithdrawal | number_format(2, '.', ',') }}
+                                    </h2>
+                                    <!-- Comment -->
+                                    <a href={{ path('transaction') }}>
+                                        <p class="fs-6 btn-link mb-0 mt-2">
+                                            View withdrawals
+                                        </p>
+                                    </a>
+                                </div>
+
+                                <span class="text-danger">
+                                    <i class="bi bi-box-arrow-in-up fs-1"></i>
+                                </span>
+                            </div>
+                        </div> <!-- / .row -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card border-0">
+                    <!-- Card body -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col d-flex justify-content-between">
+                                <div>
+                                    <!-- Title -->
+                                    <h5 class="d-flex align-items-center text-uppercase text-muted fw-semibold mb-2">
+                                        <span class="legend-circle-sm bg-secondary"></span>
+                                        Referrals
+                                    </h5>
+                                    <!-- Subtitle -->
+                                    <h2 class="mb-0">
+                                        {{ app.user.ref|length }}
+                                    </h2>
+                                    <!-- Comment -->
+                                    <a href={{ path("referrals") }}>
+                                        <p class="fs-6 btn-link mb-0 mt-2">
+                                            View referrals
+                                        </p>
+                                    </a>
+                                </div>
+                                <span class="text-secondary">
+                                    <i class="bi bi-link fs-1"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                       
+                </div>
+                
+            <div class="mt-4 row">
+                <div class="col-12">
+                    <div>
+                        <h5 class="text-primary h5">Active Plan(s)
+                            <span class="text-base count">({{activeplans|length}})</span>
+                        </h5>
+                    </div>
+                </div>
+                <div class="col-12">
+                      {% for plan in activeplans %}
+                          <div class="row">
+                            <div class="col-md-12">
+                                <div class="py-4 card">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="h5">{{plan.name}}</h6>
+                                            <p class="h3">
+                                                ${{plan.amount}}
+                                            </p>
+                                        </div>
+                                        <div class="d-none d-md-block">
+                                            <div class="d-flex justify-content-around">
+                                                <div class="mr-3">
+                                                    <h6 class="text-black bold">
+                                                        {{ plan.startdate | date('D, M d, Y g:i A') }}
+                                                    </h6>
+                                                    <span class="nk-iv-scheme-value date">Start Date</span>
+                                                </div>
+                                                <span class="m-3">
+
+                                                </span>
+                                                <div class="ml-3">
+                                                    <h6 class="text-black bold">
+                                                        {{ plan.enddate | date('D, M d, Y g:i A') }}
+                                                    </h6>
+                                                    <span class="nk-iv-scheme-value date">End Date</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h6 class="text-black">
+                                                                                                <span class="badge bg-success">Active</span>
+                                                                                        </h6>
+                                            <span class="nk-iv-scheme-value amount">Status</span>
+                                        </div>
+
+                                        <a href={{ path('plan', {'plan':plan.id}) }}>
+                                            <i class="bi bi-arrow-right fs-2"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      {% endfor %}
+                        
+                                </div>
+            </div>
+            
+            
+        <div class="mt-4 row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between">
+                    <h6 class="text-primary h5">
+                        Recent transactions
+                    </h6>
+                    <div class="">
+                        <a href={{ path('transaction') }} class="btn btn-primary btn-sm">
+                            View all transactions
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Type</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for tx in txs %}
+                                        <tr>
+                                            <td>
+                                                {{ tx.date | date('D, M d, Y g:i A') }}
+                                            </td>
+                                            <td>
+                                                {{tx.description}}
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-primary">
+                                                    ${{tx.amount|number_format(2, '.', '')}} 
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                 </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 d-flex">
+                <!-- Card -->
+                <div class="card border-0 flex-fill w-100">
+                    <div class="card-header border-0 card-header-space-between">
+                        <!-- Title -->
+                        <h2 class="card-header-title h4 text-uppercase">
+                            Real time market data
+                        </h2>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <!-- TradingView Widget BEGIN -->
+                        <div class="tradingview-widget-container">
+                            <div class="tradingview-widget-container__widget"></div>
+                            <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/"
+                                    rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on
+                                        TradingView</span></a></div>
+                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-forex-cross-rates.js"
+                                async>
+                                {
+                                    "width": "100%",
+                                    "height": "550",
+                                    "currencies": [
+                                        "EUR",
+                                        "USD",
+                                        "JPY",
+                                        "GBP",
+                                        "CHF",
+                                        "AUD",
+                                        "CAD",
+                                        "NZD",
+                                        "CNY",
+                                        "TRY",
+                                        "SEK",
+                                        "NOK"
+                                    ],
+                                    "isTransparent": true,
+                                    "colorTheme": "light",
+                                    "locale": "en"
+                                }
+                            </script>
+                        </div>
+                        <!-- TradingView Widget END -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+            </div>
+{% endblock %}

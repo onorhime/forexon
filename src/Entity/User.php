@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -46,6 +48,41 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $visiblepassword = null;
+
+    #[ORM\Column]
+    private ?float $balance = null;
+
+    #[ORM\Column]
+    private ?float $profit = null;
+
+    #[ORM\Column]
+    private ?float $bonus = null;
+
+    #[ORM\Column]
+    private ?float $totaldeposit = null;
+
+    #[ORM\Column]
+    private ?float $totalwithdrawal = null;
+
+    #[ORM\OneToMany(targetEntity: Notification::class, mappedBy: 'user')]
+    private Collection $notifications;
+
+    #[ORM\OneToMany(targetEntity: Transaction::class, mappedBy: 'user')]
+    private Collection $transactions;
+
+    #[ORM\OneToMany(targetEntity: Plan::class, mappedBy: 'user')]
+    private Collection $plans;
+
+    public function __construct()
+    {
+        
+        $this->notifications = new ArrayCollection();
+        $this->transactions = new ArrayCollection();
+        $this->plans = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -185,6 +222,166 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setDate(\DateTimeInterface $date): static
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getVisiblepassword(): ?string
+    {
+        return $this->visiblepassword;
+    }
+
+    public function setVisiblepassword(string $visiblepassword): static
+    {
+        $this->visiblepassword = $visiblepassword;
+
+        return $this;
+    }
+    public function getBalance(): ?float
+    {
+        return $this->balance;
+    }
+
+    public function setBalance(float $balance): static
+    {
+        $this->balance = $balance;
+
+        return $this;
+    }
+
+    public function getProfit(): ?float
+    {
+        return $this->profit;
+    }
+
+    public function setProfit(float $profit): static
+    {
+        $this->profit = $profit;
+
+        return $this;
+    }
+
+    public function getBonus(): ?float
+    {
+        return $this->bonus;
+    }
+
+    public function setBonus(float $bonus): static
+    {
+        $this->bonus = $bonus;
+
+        return $this;
+    }
+
+    public function getTotaldeposit(): ?float
+    {
+        return $this->totaldeposit;
+    }
+
+    public function setTotaldeposit(float $totaldeposit): static
+    {
+        $this->totaldeposit = $totaldeposit;
+
+        return $this;
+    }
+
+    public function getTotalwithdrawal(): ?float
+    {
+        return $this->totalwithdrawal;
+    }
+
+    public function setTotalwithdrawal(float $totalwithdrawal): static
+    {
+        $this->totalwithdrawal = $totalwithdrawal;
+
+        return $this;
+    }
+     /**
+     * @return Collection<int, Notification>
+     */
+    public function getNotifications(): Collection
+    {
+        return $this->notifications;
+    }
+
+    public function addNotification(Notification $notification): static
+    {
+        if (!$this->notifications->contains($notification)) {
+            $this->notifications->add($notification);
+            $notification->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotification(Notification $notification): static
+    {
+        if ($this->notifications->removeElement($notification)) {
+            // set the owning side to null (unless already changed)
+            if ($notification->getUser() === $this) {
+                $notification->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Transaction>
+     */
+    public function getTransactions(): Collection
+    {
+        return $this->transactions;
+    }
+
+    public function addTransaction(Transaction $transaction): static
+    {
+        if (!$this->transactions->contains($transaction)) {
+            $this->transactions->add($transaction);
+            $transaction->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransaction(Transaction $transaction): static
+    {
+        if ($this->transactions->removeElement($transaction)) {
+            // set the owning side to null (unless already changed)
+            if ($transaction->getUser() === $this) {
+                $transaction->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Plan>
+     */
+    public function getPlans(): Collection
+    {
+        return $this->plans;
+    }
+
+    public function addPlan(Plan $plan): static
+    {
+        if (!$this->plans->contains($plan)) {
+            $this->plans->add($plan);
+            $plan->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlan(Plan $plan): static
+    {
+        if ($this->plans->removeElement($plan)) {
+            // set the owning side to null (unless already changed)
+            if ($plan->getUser() === $this) {
+                $plan->setUser(null);
+            }
+        }
 
         return $this;
     }

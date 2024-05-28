@@ -1,0 +1,179 @@
+{% extends 'base.html.twig' %}
+
+
+{% block main %}
+            <div class="container-fluid mb-5">
+                <!-- Title -->
+    <div class="d-flex justify-content-between align-items-center">
+        <h1 class="h2">
+            Premium Plan
+        </h1>
+        <div>
+            <a href={{ path('plans') }} class="fs-1">
+                <i class="bi bi-arrow-left-circle-fill"></i>
+            </a>
+        </div>
+    </div>
+    <div>
+    </div>
+    <div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h2>
+                        {{plan.interest}}% Daily
+                        for 
+                        {% set startDate = plan.startdate %}
+                        {% set endDate = plan.enddate %}
+
+                        {% set difference = endDate.diff(startDate) %}
+                        {% set daysDifference = difference.days %}
+
+                        {{ daysDifference }}
+                        Days
+                    </h2>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                                                           {% if plan.iscomplete %}
+                                                             <span class="badge bg-success">Completed</span>
+                                                             {% else %}
+                                                              <span class="badge bg-success">Active</span>
+                                                           {% endif %}
+                                                    </div>
+                                                                                    {# <a href="#" class="px-3 btn btn-danger btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal"> <i class=" fas fa-times"></i> Cancel this Plan</a> #}
+
+                                <!-- cancel plan modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true" x-data="{ disabled: false }">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header pb-0">
+                                                <h3 class="modal-title">Cancel plan</h3>
+                                                <!-- Button -->
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to cancel your Premium plan?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+
+                                                <a href="https://mam.getonlinetrader.pro/protodash/dashboard/cancel-plan/68" type="button"
+                                                    class="btn btn-danger" :class="{ 'd-none': disabled }"
+                                                    x-on:click="disabled = true">Cancel</a>
+
+                                                <button class="btn btn-danger" :class="disabled ? 'd-block' : 'd-none'"
+                                                    disabled>
+                                                    Cancel
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                                                        </div>
+                    <hr>
+                    <div class="mt-5">
+                        <h4 class="mb-3">Plan information</h4>
+                        <div class="mb-5 row">
+                            <div class="col-12">
+                                <div class="d-flex justify-content-around">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h2 class="m-0">
+                                                ${{ plan.amount|number_format('2', '.', ',') }} +
+                                                &nbsp;
+                                            </h2>
+                                            <small>Invested</small>
+                                        </div>
+                                        <div>
+                                            <h2 class="m-0 text-success">
+                                                $
+                                                
+
+                                                {% set diffe = date.diff(startDate) %}
+                                                {% set daysDiff = diffe.days|number_format(2,'.','') %}
+                                                 {% if  daysDiff <= daysDifference %}
+                                                    {{ (plan.amount * plan.interest) / 100  * daysDiff|number_format(2,'.','') }}
+                                                    {% else %}
+                                                    {{ (plan.amount * plan.interest) / 100  * daysDifference|number_format(2,'.','') }}
+                                                {% endif %}
+                                                 
+
+                                            </h2>
+                                            <small> Earned</small>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h2 class="m-0 text-success">
+                                                                                            $ {{ (plan.amount * plan.interest) / 100  * daysDifference|number_format(2,'.','') }}
+                                                                                    </h2>
+                                        <small>Total Return</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row border-bottom">
+                            <div class="col-md-3">
+                                <p>Duration: <br><strong>{{ daysDifference}} Days</strong> </p>
+                            </div>
+                            <div class="col-md-3">
+                                <p>Start Date: <br>
+                                    <strong>{{ plan.startdate | date('D, M d, Y g:i A') }}</strong>
+                                </p>
+                            </div>
+                            <div class="col-md-3">
+                                <p>End Date:
+                                    <br><strong>{{ plan.enddate | date('D, M d, Y g:i A') }}</strong>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-4 row border-bottom">
+                            <div class="col-md-3">
+                                <p>Minimum Return: <br><strong>{{plan.interest}}%</strong> </p>
+                            </div>
+                            <div class="col-md-3">
+                                <p>Maximum Return: <br> <strong>{{plan.interest * daysDifference}}%</strong> </p>
+                            </div>
+                            <div class="col-md-3">
+                                <p>ROI Interval:
+                                    <br><strong>Daily</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {# <div class="mt-5 ">
+                        <h4>
+                            Transactions
+                        </h4>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Date</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                                                            <tr>
+                                            <td colspan="3" class="text-center">
+                                                <i class="bi bi-database-fill-exclamation" style="font-size: 50px"></i>
+                                                <h2 class="h3"> No transaction record yet</h2>
+                                            </td>
+                                        </tr>
+                                                                    </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            
+                        </div>
+                    </div> #}
+                </div>
+            </div>
+{% endblock %}

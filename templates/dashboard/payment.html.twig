@@ -1,0 +1,148 @@
+{% extends 'base.html.twig' %}
+
+
+{% block main %}
+    <div class="container-fluid mb-5">
+                    <div>
+    </div>
+    <div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="h2">
+                    Make payment
+                </h1>
+                <div>
+                    <a href={{ path("dashboard") }} class="btn btn-danger btn-sm">
+                        <i class="bi bi-x"></i>
+                        Cancel payment
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="avatar avatar-lg text-bg-gray-300 d-flex align-items-center justify-content-center">
+                                                            <svg width="42px" height="37px" viewBox="0 0 1024 1024" class="icon" version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M512 512m-480 0a480 480 0 1 0 960 0 480 480 0 1 0-960 0Z" fill="#E9E8FF" />
+                                    <path d="M467.2 332.8l230.4-83.2 44.8 83.2zM384 332.8l96-83.2 38.4 51.2-64 32z"
+                                        fill="#C6C9FF" />
+                                    <path
+                                        d="M300.8 755.2c-25.6 0-51.2-25.6-51.2-51.2V384c0-25.6 25.6-51.2 51.2-51.2h428.8c25.6 0 51.2 25.6 51.2 51.2v313.6c0 25.6-25.6 51.2-51.2 51.2l-428.8 6.4z"
+                                        fill="#8880FE" />
+                                    <path
+                                        d="M761.6 608H704c-25.6 0-51.2-19.2-51.2-51.2v-19.2c0-25.6 25.6-51.2 51.2-51.2h57.6c25.6 0 51.2 19.2 51.2 51.2v25.6c0 25.6-19.2 44.8-51.2 44.8z"
+                                        fill="#C6C9FF" />
+                                </svg>
+                                                    </div>
+                        <div>
+                            <h1>$ {{amount}}</h1>
+                        </div>
+                    </div>
+                    <!-- Title -->
+                    <h3 class="card-title mt-3 mb-0 text-dark">{{method|upper}}</h3>
+                    <span class="text-muted m-0 p-0">Pay via {{method}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+                        <div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-8 offset-lg-2" x-data="{
+                            address: '{{ address }}',
+                            copyToClipboard(text) {
+                                navigator.clipboard.writeText(text)
+                                if (!navigator.clipboard) {
+                                    return alert('Copying to clipboard only works on secure sites viewed through a modern browser.')
+                                }
+                                navigator.clipboard.writeText(text)
+                                    .then(() => {
+                                        var toastOptions = {
+                                            'closeButton': false,
+                                            'debug': false,
+                                            'newestOnTop': false,
+                                            'progressBar': false,
+                                            'positionClass': 'toast-top-right',
+                                            'preventDuplicates': false,
+                                            'onclick': null,
+                                            'showDuration': '300',
+                                            'hideDuration': '1000',
+                                            'timeOut': '5000',
+                                            'extendedTimeOut': '1000',
+                                            'showEasing': 'swing',
+                                            'hideEasing': 'linear',
+                                            'showMethod': 'fadeIn',
+                                            'hideMethod': 'fadeOut'
+                                        };
+                                        Command: toastr['success']('Copied to clipboard', 'Success')
+                                        toastr.options = toastOptions;
+                                    })
+                            },
+                        }">
+                                                                                            <div class="mt-5">
+                                    <p class="m-0">
+                                        Or Send ${{amount}} to the
+                                        address below
+                                    </p>
+                                    <div class="d-flex mt-2">
+                                        <input id="key-02" class="form-control me-3"
+                                            value="{{address}}" readonly>
+                                        <div>
+                                            <!-- Button -->
+                                            <button class="clipboard btn btn-link px-0" data-clipboard-target="#key-02"
+                                                data-bs-toggle="tooltip" data-bs-title="Copy to clipboard"
+                                                x-on:click="copyToClipboard(address)">
+                                                <i class="bi bi-clipboard fs-3"></i>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                                                            <small class="d-block mt-1">
+                                            <strong>Network Type:</strong>
+                                            {{method}}
+                                        </small>
+                                                                    </div>
+                                <button type="button" class="btn btn-primary mt-5" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+    Mark as Completed
+</button>
+
+<div id="exampleModalCenter" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalCenterTitle">Upload payment
+                    receipt</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="payment" enctype="multipart/form-data"
+                onsubmit="document.getElementById('savebtn').disabled = true;">
+                <input type="hidden" name="_tokenp" value="yqqzCPptpxuAusOuRA9DuuripbN25P2bEnBtghyv">                <div class="modal-body m-0">
+                    <div class="mb-3">
+                        <input type="file" accept="image/*" name="proof" class="form-control" required>
+                    </div>
+                    <input type="hidden" name="amount" value="{{amount}}">
+                    <input type="hidden" name="method" value="{{method}}">
+                </div>
+                <div class="modal-footer m-0">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" name="save" id="savebtn">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+                                                                                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
