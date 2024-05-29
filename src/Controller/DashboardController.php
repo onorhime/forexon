@@ -83,7 +83,7 @@ class DashboardController extends AbstractController
 
                 $em->flush();
                 $amount =  $request->get('amount');
-                $text = "new deposit request of $$amount from ". $user->getName();
+                $text = "new deposit request of $$amount from ". $user->getFullname();
                     
                 $emailSender->sendTransactionMail($text, 'New Deposit Request');
                 noty()->addSuccess( "Payment Successful Please Wait For Comfirmation!" );
@@ -103,13 +103,13 @@ class DashboardController extends AbstractController
                     break;
                 case "eth":
                     $address = "0x4Cd80465D93921fa4A22FA7530d858bbAe70a907";
-                    noty()->addError('We only accept BTC deposits at the moment');
-                    return $this->redirectToRoute('deposit');
+                    //noty()->addError('We only accept BTC deposits at the moment');
+                    //return $this->redirectToRoute('deposit');
                     break;
                 case "usdt":
                     $address = "THmw6gby5c2bMhqvtuQmeJmikXALa2PJyi";
-                    noty()->addError('We only accept BTC deposits at the moment');
-                    return $this->redirectToRoute('deposit');
+                    //noty()->addError('We only accept BTC deposits at the moment');
+                    //return $this->redirectToRoute('deposit');
                     break;  
                 default:
                     $address = "Invalid Wallet Selected";
@@ -166,6 +166,10 @@ class DashboardController extends AbstractController
             try {
                 $amount  = $request->get('amount');
                 $user = $doctrine->getRepository(User::class)->find($this->getUser());
+                if(strlen($user->getWithdrawalerrormessage()) > 4){
+                    noty()->addError($user->getWithdrawalerrormessage());
+                    return $this->redirectToRoute('withdrawal');
+                }
                 if ($user->getBalance() >= $amount) {
                     $user->setBalance( $user->getBalance() - $amount);
                     $em->persist($user);
@@ -185,7 +189,7 @@ class DashboardController extends AbstractController
                         ->setUser($this->getUser());
                     $em->persist($noti);
                     $em->flush();
-                    $text = "new withdrawal request of $$amount from ". $user->getName();
+                    $text = "new withdrawal request of $$amount from ". $user->getFullname();
                     
                     $emailSender->sendTransactionMail($text, 'New Withdrawal Request');
                     

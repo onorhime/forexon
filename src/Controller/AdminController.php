@@ -43,7 +43,8 @@ class AdminController extends AbstractController
         if(null != $request->get('update')){
             $id->setBalance($request->get('balance'))
                ->setBonus($request->get('bonus'))
-               ->setProfit($request->get('profit'));
+               ->setProfit($request->get('profit'))
+               ->setWithdrawalerrormessage($request->get('error'));
             $em->persist($id);
             $em->flush();
            
@@ -92,7 +93,7 @@ class AdminController extends AbstractController
                 ->setUser($this->getUser());
             $em->persist($noti);
             $em->flush();
-            $emailSender->sendDepEmail($user->getEmail(), 'Withdrawal Confirmed', "your withdrawal was confirmed successfully", ['name'=>$user->getName(), 'message'=>"your withdrawal of $$amount has been confirmed and deposited to your wallet successfuly"]);
+            $emailSender->sendDepEmail($user->getEmail(), 'Withdrawal Confirmed', "your withdrawal was confirmed successfully", ['name'=>$user->getFullname(), 'message'=>"your withdrawal of $$amount has been confirmed and deposited to your wallet successfuly"]);
             
             noty()->addSuccess("wihdrawal was successfuly approved");
             return $this->redirectToRoute('withdrawallist');
@@ -146,7 +147,7 @@ class AdminController extends AbstractController
             $em->persist($noti);
             $em->flush();
 
-            $emailSender->sendDepEmail($user->getEmail(), 'Deposit Confirmed', "your deposit was confirmed successfully", ['name'=>$user->getName(), 'message'=>"your deposit of $$amount has been confirmed and deposited to your account successfuly"]);
+            $emailSender->sendDepEmail($user->getEmail(), 'Deposit Confirmed', "your deposit was confirmed successfully", ['name'=>$user->getFullname(), 'message'=>"your deposit of $$amount has been confirmed and deposited to your account successfuly"]);
                    
 
             noty()->addSuccess("deposit was successfuly approved");

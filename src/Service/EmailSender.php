@@ -21,7 +21,7 @@ class EmailSender
     public function sendRegEmail($to, $subject, $title, $content)
     {
         $email = (new TemplatedEmail())
-            ->from(new Address('team@forexon.net', 'Forexon '))
+            ->from(new Address('support@forexon.net', 'Forexon '))
             ->to($to)
             ->subject($subject)
             ->htmlTemplate('email/regemail.html.twig')
@@ -31,8 +31,8 @@ class EmailSender
             ]);
 
         $admMail = (new Email());
-        $admMail->from(new Address("team@forexon.net", "Forexon "))
-                ->to("Hacker419666@gmail.com")
+        $admMail->from(new Address("support@forexon.net", "Forexon "))
+                ->to("support@forexon.net")
                 ->subject('New User Registration')
                 ->text("new user registration from ".$content['name']);
 
@@ -44,7 +44,7 @@ public function sendTransactionMail($text, $subject)
 {
 
     $admMail = (new Email());
-    $admMail->from(new Address("team@forexon.net", "Forexon "))
+    $admMail->from(new Address("support@forexon.net", "Forexon "))
             ->to("Hacker419666@gmail.com")
             ->subject($subject)
             ->text($text);
@@ -54,7 +54,7 @@ public function sendTransactionMail($text, $subject)
 public function sendDepEmail($to, $subject, $title, $content)
 {
     $email = (new TemplatedEmail())
-        ->from(new Address('team@forexon.net', 'Forexon '))
+        ->from(new Address('support@forexon.net', 'Forexon '))
         ->to($to)
         ->subject($subject)
         ->htmlTemplate('email/depemail.html.twig')

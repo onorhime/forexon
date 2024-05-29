@@ -23,7 +23,7 @@ class ExceptionListener
 
         // Redirect to home page for all exceptions
         dd("jh");
-        $response = new RedirectResponse($this->router->generate('/dashboard'));
+        $response = new RedirectResponse($this->router->generate('/'));
         $event->setResponse($response);
     }
 }

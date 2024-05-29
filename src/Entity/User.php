@@ -76,6 +76,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Plan::class, mappedBy: 'user')]
     private Collection $plans;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $withdrawalerrormessage = null;
+
     public function __construct()
     {
         
@@ -382,6 +385,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $plan->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getWithdrawalerrormessage(): ?string
+    {
+        return $this->withdrawalerrormessage;
+    }
+
+    public function setWithdrawalerrormessage(?string $withdrawalerrormessage): static
+    {
+        $this->withdrawalerrormessage = $withdrawalerrormessage;
 
         return $this;
     }

@@ -56,7 +56,7 @@
                                                    {% for withdrawal in withdrawals %}
                                                      <tr>
                                                     
-                                                        <td>{{withdrawal.user.name}}</td>
+                                                        <td>{{withdrawal.user.fullname}}</td>
                                                         <td>${{withdrawal.amount}} </td>
                                                         <td>{{withdrawal.status}}</td>
                                                         <td>{{withdrawal.date|date('D-M-Y')}}</td>

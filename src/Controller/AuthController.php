@@ -74,6 +74,8 @@ class AuthController extends AbstractController
 
 
             } catch (Exception $e) {
+                return $this->json(["status" => "error", "message" => $e->
+                getMessage()]);
                 // User not found, continue with registration
             }
         }
@@ -155,7 +157,7 @@ class AuthController extends AbstractController
                       ->setUser($user);
                 $em->persist($noti);
                 $em->flush();
-                //$emailSender->sendRegEmail($request->get('email'), 'Welcome Aboard', 'Welcome to Forexon ', ['name'=>$request->get('name'), 'message'=>'']);
+                $emailSender->sendRegEmail($request->get('email'), 'Welcome Aboard', 'Welcome to Forexon ', ['name'=>$request->get('name'), 'message'=>'']);
                 
                 return $this->json(["status" => "success", "message" => "Registration Successful"]);
             
@@ -237,7 +239,7 @@ class AuthController extends AbstractController
                 $existingUser->setToken($token);
                 $em->persist($existingUser);
                 $em->flush();
-                $link = "https://eliteforte.net/ent/secure/changepassword.html?token=".$existingUser->getToken();
+                $link = "https://forexon.net/ent/secure/changepassword.html?token=".$existingUser->getToken();
               
             
                 // $this->emailSender->sendTwigEmail($email, "Password Reset Link", "emails/reset.html.twig", [

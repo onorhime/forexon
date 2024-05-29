@@ -178,7 +178,7 @@
                                             <tbody>
                                                      {% for user in app.user.ref %}
                                                          <tr>
-                                                        <td>{{user.name}}</td>
+                                                        <td>{{user.fullname}}</td>
                                                         <td>Direct level</td>
                                                         <td>
                                                             ${{ user.totaldeposit|number_format('2', '.', ',') }}

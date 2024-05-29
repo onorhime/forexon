@@ -36,7 +36,7 @@
                                                    {% for plan in plans %}
                                                     <tr>
                                                     
-                                                        <td> {{plan.user.name}}</td>
+                                                        <td> {{plan.user.fullname}}</td>
                                                         <td> {{plan.name}}</td>
                                                         <td>${{plan.amount}}</td>
                                                         <td> {{ plan.startdate | date('D, M d, Y g:i A') }} </td>

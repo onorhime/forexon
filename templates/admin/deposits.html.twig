@@ -36,7 +36,7 @@
                                                    {% for deposit in deposits %}
                                                     <tr>
                                                     
-                                                        <td> {{deposit.user.name}}</td>
+                                                        <td> {{deposit.user.fullname}}</td>
                                                         <td>$ {{deposit.amount|number_format(2, '.', '') }} </td>
                                                         <td>{{deposit.status}} </td>
                                                         <td>{{deposit.date|date('D-M-Y')}}</td>

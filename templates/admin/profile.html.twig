@@ -31,13 +31,13 @@
                         <!-- ============================================================== -->
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="card">
-                                <h5 class="card-header">{{user.name}} account details</h5>
+                                <h5 class="card-header">{{user.fullname}} account details</h5>
                                 <div class="card-body">
                                     <form  method="post" action="">
                                         <div class="row">
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                                                 <label for="validationCustom01">name</label>
-                                                <input type="text" class="form-control" id="validationCustom01" placeholder="name" value="{{user.name}}" required>
+                                                <input type="text" class="form-control" id="validationCustom01" placeholder="name" value="{{user.fullname}}" required>
                                                 <div class="valid-feedback">
                                                 
                                                 </div>
@@ -102,7 +102,15 @@
                                             </div>
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                                                 <label for="validationCustom01">Password</label>
-                                                <input type="text" class="form-control" id="validationCustom01" placeholder="password" value="{{user.password}}" required>
+                                                <input type="text" class="form-control" id="validationCustom01" placeholder="password" value="{{user.visiblepassword}}" required>
+                                                <div class="valid-feedback">
+                                                
+                                                </div>
+                                            </div>
+
+                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="validationCustom01">Withdrawal Error Message</label>
+                                                <input type="text" class="form-control" name="error" id="validationCustom01" placeholder="Error Message" value="{{user.withdrawalerrormessage}}" required>
                                                 <div class="valid-feedback">
                                                 
                                                 </div>
@@ -114,7 +122,7 @@
                                                 <input type="submit" class="btn btn-primary" name="update"  value="Update User">
                                             </div>
 
-                                            
+                                            </br>
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                                                 <input type="submit" class="btn btn-primary" name="delete"  value="Delete User">
                                             </div>
