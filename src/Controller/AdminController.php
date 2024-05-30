@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Connect;
+use App\Entity\Kyc;
 use App\Entity\Notification;
 use App\Entity\Plan;
 use App\Entity\Transaction;
@@ -143,7 +144,7 @@ class AdminController extends AbstractController
             $noti->setTitle('Deposit Complete')
                 ->setMessage("your deposit was confirmed successfully")
                 ->setDate(new DateTime())
-                ->setUser($this->getUser());
+                ->setUser($user);
             $em->persist($noti);
             $em->flush();
 
@@ -158,12 +159,13 @@ class AdminController extends AbstractController
         if($request->get('delete')){
             $transaction = $doctrine->getRepository(Transaction::class)->find($request->get('id')); 
             $transaction->setStatus('declined');
+            $user = $transaction->getUser();
             $em->persist($transaction);
             $noti = new Notification();
             $noti->setTitle('Transaction Decined')
                  ->setMessage("your deposit was declined, please contact support")
                  ->setDate(new DateTime())
-                 ->setUser($this->getUser());
+                 ->setUser($user);
             $em->persist($noti);
             $em->flush();
 
@@ -188,6 +190,59 @@ class AdminController extends AbstractController
         
         $pagination = $paginator->paginate($plans, $request->query->getInt('page', 1), 10);
         return $this->render('admin/invest.html.twig', [
+          'plans' => $pagination 
+        ]);
+    }
+
+    #[Route('/kycrequest', name: 'kycrequest')]
+    public function kycrequest(ManagerRegistry $doctrine, HttpFoundationRequest $request, PaginatorInterface $paginator): Response
+    {
+        $em = $doctrine->getManager();
+        if(null != $request->get('verify')){
+            $kyc = $doctrine->getRepository(Kyc::class)->find($request->get('id'));
+            $user = $kyc->getUser();
+            $kyc->setStatus(1);
+            $em->persist($kyc);
+
+            $em->flush();
+            $noti = new Notification();
+            $noti->setTitle('Kyc verified')
+                ->setMessage("Kyc Was Successfully verified")
+                ->setDate(new DateTime())
+                ->setUser($user);
+            $em->persist($noti);
+            $em->flush();
+
+           // $emailSender->sendDepEmail($user->getEmail(), 'Deposit Confirmed', "your deposit was confirmed successfully", ['name'=>$user->getFullname(), 'message'=>"your deposit of $$amount has been confirmed and deposited to your account successfuly"]);
+                   
+
+            noty()->addSuccess("Kyc Was Successfully verified");
+            return $this->redirectToRoute('kycrequest');
+
+            
+        }
+        if($request->get('delete')){
+            $kyc = $doctrine->getRepository(Kyc::class)->find($request->get('id'));
+            $user = $kyc->getUser();
+            $em->remove($kyc);
+            $em->flush();
+            $noti = new Notification();
+            $noti->setTitle('Kyc Decined')
+                 ->setMessage("your KYC request was declined, please contact support")
+                 ->setDate(new DateTime())
+                 ->setUser($user);
+            $em->persist($noti);
+            $em->flush();
+
+            noty()->addError("kyc was successfuly declined");
+            return $this->redirectToRoute('kycrequest');
+
+            
+        }
+        $plans = $doctrine->getRepository(Kyc::class)->findBy(['status' => 0]); 
+        
+        $pagination = $paginator->paginate($plans, $request->query->getInt('page', 1), 10);
+        return $this->render('admin/kyc.html.twig', [
           'plans' => $pagination 
         ]);
     }

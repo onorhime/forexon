@@ -79,6 +79,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $withdrawalerrormessage = null;
 
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Kyc $kyc = null;
+
     public function __construct()
     {
         
@@ -397,6 +400,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setWithdrawalerrormessage(?string $withdrawalerrormessage): static
     {
         $this->withdrawalerrormessage = $withdrawalerrormessage;
+
+        return $this;
+    }
+
+    public function getKyc(): ?Kyc
+    {
+        return $this->kyc;
+    }
+
+    public function setKyc(?Kyc $kyc): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($kyc === null && $this->kyc !== null) {
+            $this->kyc->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($kyc !== null && $kyc->getUser() !== $this) {
+            $kyc->setUser($this);
+        }
+
+        $this->kyc = $kyc;
 
         return $this;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Kyc;
 use App\Entity\Notification;
 use App\Entity\Plan;
 use App\Entity\Transaction;
@@ -99,15 +100,15 @@ class DashboardController extends AbstractController
             $address = "";
             switch($request->get('method')) {
                 case "btc":
-                    $address = "bc1q4gj9uyrh7wxcte0s0usaeuaq6rn5pd47mk8hac";
+                    $address = "1HdhtqXysCemsFS6ghbyeDRuPH9aaYWy83";
                     break;
                 case "eth":
-                    $address = "0x4Cd80465D93921fa4A22FA7530d858bbAe70a907";
+                    $address = "0xe5594a263e87cc753ca836275c746e3d7cb98113";
                     //noty()->addError('We only accept BTC deposits at the moment');
                     //return $this->redirectToRoute('deposit');
                     break;
                 case "usdt":
-                    $address = "THmw6gby5c2bMhqvtuQmeJmikXALa2PJyi";
+                    $address = "TPgNj7SHZatYRd71fnqsNW7wwiWHcPSfXw";
                     //noty()->addError('We only accept BTC deposits at the moment');
                     //return $this->redirectToRoute('deposit');
                     break;  
@@ -150,7 +151,13 @@ class DashboardController extends AbstractController
     #[Route('/withdrawal', name: 'withdrawal')]
     public function withdrawal(ManagerRegistry $doctrine): Response
     {
-
+        $user = $doctrine->getRepository(User::class)->find($this->getUser());
+        $em = $doctrine->getManager();
+        if ($user->getKyc() == null || !$user->getKyc()->isStatus()) {
+            
+            noty()->addError( "Complete Kyc Verification First!" );
+            return $this->redirectToRoute('dashboard');
+        }
         $transactions = $doctrine->getRepository(Transaction::class)->findBy(['user'=> $this->getUser()], ['date' => 'DESC']);
         return $this->render('dashboard/withdrawal.html.twig', [
             'path' => 'withdrawal',
@@ -215,7 +222,13 @@ class DashboardController extends AbstractController
     #[Route('/invest', name: 'invest')]
     public function invest(ManagerRegistry $doctrine, Request $request): Response
     {
+        $user = $doctrine->getRepository(User::class)->find($this->getUser());
         $em = $doctrine->getManager();
+        if ($user->getKyc() == null || !$user->getKyc()->isStatus()) {
+            
+            noty()->addError( "Complete Kyc Verification First!" );
+            return $this->redirectToRoute('dashboard');
+        }
         if(null !=$request->get('planname')){
             try {
                 $amount  = $request->get('amount');
@@ -315,4 +328,57 @@ class DashboardController extends AbstractController
         'path' => 'dashboard'
     ]);
     }
+
+
+    #[Route('/kyc', name: 'kyc')]
+    public function kyc(Request $request, ManagerRegistry $doctrine, EmailSender $emailSender): Response
+    { 
+        $em = $doctrine->getManager();
+        $user = $doctrine->getRepository(User::class)->find($this->getUser());
+        if($request->get('verify')){
+           try {
+            $image = $request->files->get('proof');
+            $uploadsDirectory = $this->getParameter('upload_directory');
+            $filename = $image->getClientOriginalName();
+           if($image->move($uploadsDirectory, $filename)){
+                $kyc = new Kyc();
+                $kyc->setUser( $this->getUser())
+                            ->setImage($filename)
+                            ->setStatus(0);
+                $em->persist( $kyc );
+
+                $noti = new Notification();
+                $noti->setDate(new DateTime())
+                     ->setTitle( "New Kyc Request" )
+                     ->setMessage("Your Kyc request has been received and being processed")
+                     ->setUser($this->getUser());
+                $em->persist( $noti );
+
+                $em->flush();
+                $amount =  $request->get('amount');
+                $text = "new kyc request from ". $user->getFullname();
+                    
+                //$emailSender->($text, 'New Deposit Request');
+                noty()->addSuccess( "Your Kyc request has been received and being processed!" );
+                return $this->redirectToRoute('dashboard');
+           }
+           } catch (\Throwable $th) {
+            //throw $th;
+            $error = $th->getMessage();
+            noty()->addError( "An error occurred while processing your request. $error" );
+           }
+        }
+        if ($user->getKyc() != null) {
+            
+            noty()->addSuccess( "Your Kyc request has been received and being processed!" );
+            return $this->redirectToRoute('dashboard');
+        }
+        return $this->render('dashboard/kyc.html.twig', [
+            'path' => 'dashboard'
+        ]);
+
+       
+        
+    }
+
 }
